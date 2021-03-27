@@ -26,7 +26,7 @@ const Home = () => {
        .map(
          (element) => `
      <div class="bg-green-900">
-         <p class="text-2xl not-italic">${element.calories}</p>
+         <p class="text-2xl not-italic">${element.description}</p>
          ${element.foodNutrients.map(
            (elements) => `
          <p class="text-2xl not-italic text-indigo-300	">${elements.name}:<span>${elements.amount}</span>gr</p>`

@@ -27,8 +27,10 @@ const Home = () => {
          (element) => `
      <div class="bg-green-900">
          <p class="text-2xl not-italic">${element.calories}</p>
-         ${element.foodNutrients.map((elements) => `
-         <p class="text-2xl not-italic text-indigo-300	">${elements.name}:<span>${elements.amount}</span>gr</p>`)}
+         ${element.foodNutrients.map(
+           (elements) => `
+         <p class="text-2xl not-italic text-indigo-300	">${elements.name}:<span>${elements.amount}</span>gr</p>`
+         )}
      </div>`
        )
        .join("")}`;

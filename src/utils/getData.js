@@ -1,5 +1,5 @@
 const getData = async (foodName) => {
-  const API = `https://test-es.edamam.com/api/nutrition-data?app_id=2c08755c&app_key=eceafe470d37f3de02d43e472d2743be&ingr=1${foodName}`;
+  const API = `https://api.nal.usda.gov/fdc/v1/foods/list?api_key=QN3xmzbG3eLlzUJa3hAKLP8GQbhsuwvpjJVOArvV&query=${foodName}`;
 
   try {
     const response = await fetch(API);

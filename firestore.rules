@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2021, 4, 26);
+    }
+  }
+}
+
+
+//rules_version = '2';
+//service cloud.firestore {
+//match /databases/{database}/documents {
+//match /user/{userId}{
+//allow create: if request.auth.uid != null;
+//allow read: if request.auth.uid == userId;
+//}
+//  match /quotes/{quoteId}{
+//  allow read, write: if request.auth.uid != null
+//  }
+//}
+//}

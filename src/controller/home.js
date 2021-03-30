@@ -1,8 +1,7 @@
 import view from "../view/home.html";
-import "tailwindcss/tailwind.css";
 import getData from "../utils/getData";
 
-const Home = () => {
+const Home = (user) => {
   const divElement = document.createElement("div");
 
   divElement.classList = "mx-4 xs:mx-4";

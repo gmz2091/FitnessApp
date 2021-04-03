@@ -6,13 +6,13 @@ import HomeUi from "./index";
 import AcountView from "./acount";
 
 const LoginForm = async () => {
-  //await activeUser();
   const divForm = document.createElement("div");
   divForm.classList = "displayView flex flex-wrap grid xs:grid-rows-2";
+  divForm.setAttribute("id", "login");
   divForm.innerHTML = viewLogin;
 
   const signInForm = divForm.querySelector("#signInForm");
-  //const loginEmail = divForm.querySelector("#login-email");
+  const loginEmail = divForm.querySelector("#login-email");
   const loginPassForm = divForm.querySelector("#login-password");
 
   const signInData = async (e) => {
@@ -38,8 +38,19 @@ const LoginForm = async () => {
         loginPassForm.value = "";
         return;
       }
+      if (e.code === "auth/user-not-found") {
+        alert(
+          "El correo que ingerso no existe, verifique o crea una nueva cuenta"
+        );
+        console.log(e);
+        loginEmail.value = "";
+        loginPassForm.value = "";
+        return;
+      }
     }
     alert("Welcome!!");
+    window.location.href = "#/acount";
+    window.location.reload();
     signInForm.reset();
     return;
   };
@@ -61,25 +72,4 @@ const signIn = async (email, password) => {
   const creds = await auth.signInWithEmailAndPassword(email, password);
   //console.log(creds.user);
   return creds;
-};
-
-const activeUser = async () => {
-  const login = document.getElementById("login");
-  const acount = document.getElementById("acount");
-  const auth = firebase.auth();
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const hiddenDisplay = document.getElementById("block");
-      const showDisplay = document.querySelector(".displayView");
-      //hiddenDisplay.classList.remove("block");
-      console.log(1);
-      login.remove();
-      return window.location.hash = "#/acount"
-      //showDisplay.appendChild(await AcountView(user));
-    } else {
-      acount.remove();
-      console.log(0);
-      return;
-    }
-  });
 };

@@ -5,16 +5,17 @@ import "firebase/firebase-firestore";
 
 const SignUpView = async (user) => {
   const divElement = document.createElement("div");
-  const loginForm = document.querySelector("#loginForm");
-  const name = document.querySelector("#name");
-  const lastname = document.querySelector("#lastname");
-  const email = document.querySelector("#email");
-  const passwrod = document.querySelector("#password");
-  const confirmPassword = document.querySelector("#confirmPassword");
+  divElement.setAttribute("id", "signup");
 
   divElement.innerHTML = views;
+  const loginForm = divElement.querySelector("#loginForm");
 
   const enviarData = async (e) => {
+    const name = document.querySelector("#name");
+    const lastname = document.querySelector("#lastname");
+    const email = document.querySelector("#email");
+    const passwrod = document.querySelector("#password");
+    const confirmPassword = document.querySelector("#confirmPassword");
     e.preventDefault();
     if (
       name.value === "" &&
@@ -41,6 +42,10 @@ const SignUpView = async (user) => {
     try {
       const { emails, passwords } = getInfoDaata();
       await signUp(emails, passwords);
+      window.location.href = "#/acount";
+      window.location.reload();
+      alert("Bienvenido");
+      loginForm.reset();
       return;
     } catch (err) {
       const e = err;
@@ -50,21 +55,11 @@ const SignUpView = async (user) => {
         return;
       }
     }
-    alert("Bienvenido");
-    loginForm.reset();
+    return;
   };
 
   loginForm.addEventListener("submit", enviarData);
-
-  const getInfoDaata = () => {
-    const emails = loginForm["email"].value;
-    const passwords = loginForm["password"].value;
-    return { emails, passwords };
-  };
-
-  if (user) {
-    return divElement;
-  }
+  return divElement;
 };
 
 export default SignUpView;
@@ -79,4 +74,10 @@ const signUp = async (email, password) => {
     lastname: loginForm["lastname"].value,
     email: loginForm["email"].value,
   });
+};
+
+const getInfoDaata = () => {
+  const emails = loginForm["email"].value;
+  const passwords = loginForm["password"].value;
+  return { emails, passwords };
 };

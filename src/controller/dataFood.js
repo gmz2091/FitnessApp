@@ -1,7 +1,7 @@
-import view from "../view/home.html";
+import view from "../view/dataFood.html";
 import getData from "../utils/getData";
 
-const Home = (user) => {
+const DataFood = (user) => {
   const divElement = document.createElement("div");
 
   divElement.classList = "mx-4 xs:mx-4";
@@ -9,10 +9,10 @@ const Home = (user) => {
 
   const searchFood = divElement.querySelector("#searchFood");
 
-  searchFood.addEventListener("click", async (e) => {
+  searchFood.addEventListener("submit", async (e) => {
+    e.preventDefault();
     let inputNamas = divElement.querySelector("#name");
 
-    e.preventDefault();
     if (inputNamas.value === "") {
       console.error("El Campo esta vacio");
       return;
@@ -34,12 +34,12 @@ const Home = (user) => {
        )
        .join("")}`;
     fooData.innerHTML = view;
-    divElement.appendChild(fooData);
     console.log(fooData);
     inputNamas.value = "";
+    return fooData;
   });
 
   return divElement;
 };
 
-export default Home;
+export default DataFood;

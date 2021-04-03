@@ -20,12 +20,13 @@ const userData = async (user) => {
   ).data();
 
   const htmlView = `
-  <button class="w-1/6 right-5 top-20 absolute p-4 bg-green-600 text-white cursor-pointer focus:outline-none rounded"
-  id="logOut">Salir
-  </button>
-  <p>${user.email}</p>
-  <p>${userCollection.name}</p>
-  <p>${userCollection.lastname}</p>
+  <div class="flex-shrink min-w-0 flex items-center">
+  <p>Email: ${user.email} <br>
+  Nombre: ${userCollection.name} ${userCollection.lastname}</p>
+  </div>  
+  <div class="ml-4 w-20 flex flex-shrink-0 items-center"><button class="px-6 py-2 bg-green-600 text-white cursor-pointer focus:outline-none rounded"
+  id="logOut">Salir</button></div>
+  
         `;
   acountDetails.innerHTML = htmlView;
   const logOut = acountDetails.querySelector("#logOut");

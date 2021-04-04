@@ -20,21 +20,23 @@ const DataFood = (user) => {
     const foodName = inputNamas.value.replaceAll(" ", "%20");
     const fooData = divElement.querySelector("#dataFood");
     const data = await getData(foodName);
+    console.log(data[0].description, data[0].foodNutrients);
     const view = `
      ${data
        .map(
          (element) => `
      <div class="bg-green-900">
          <p class="text-2xl not-italic">${element.description}</p>
-         ${element.foodNutrients.map(
-           (elements) => `
-         <p class="text-2xl not-italic text-indigo-300	">${elements.name}:<span>${elements.amount}</span>gr</p>`
-         )}
-     </div>`
+         ${element.foodNutrients
+           .map(
+             (elements) => `
+         <p class="overflow-ellipsis overflow-hidden text-2xl not-italic text-indigo-300	">${elements.name}:<span>${elements.amount}</span>gr</p>`
+           )
+           .join("")}
+      </div>`
        )
        .join("")}`;
     fooData.innerHTML = view;
-    console.log(fooData);
     inputNamas.value = "";
     return fooData;
   });

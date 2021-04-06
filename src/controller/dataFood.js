@@ -17,40 +17,47 @@ const DataFood = async (user) => {
       console.error("El Campo esta vacio");
       return;
     }
-    const foodName = inputNamas.value.replaceAll(" ", "%20");
+    const foodName = inputNamas.value.replaceAll(" ", "$20");
     const fooData = divElement.querySelector("#dataFood");
     const data = await getData(foodName);
-    while (data == null) {
-      const view = `<div id="cargando" style="display: block;" class="border border-light-blue-300 shadow rounded-md ml-5 p-4 w-full">
-      <div class="animate-pulse flex space-x-4">
-        <div class="rounded-full bg-blue-500 h-12 w-12"></div>
-        <div class="flex-1 space-y-4 py-1">
-          <div class="h-4 bg-blue-500 rounded w-3/4"></div>
-          <div class="space-y-2">
-            <div class="h-4 bg-blue-500 rounded"></div>
-            <div class="h-4 bg-blue-500 rounded w-5/6"></div>
-          </div>
-        </div>
-      </div>
-    </div>`;
-    fooData.innerHTML = view;
-    inputNamas.value = "";
-    return fooData;
-    }
-    const nutrients = data.foodNutrients 
+
     const view = `
-     ${data
-       .map(
-         (element) => `         
-         <figure class="relative w-auto md:flex bg-gray-100 rounded-md p-8 md:p-0">
-          <div class="text-blue-600 pt-6 md:p-8 text-center md:text-left space-y-4">
-            <blockquote>
-              <p class="text-lg font-semibold">${element.description}</p>
-            </blockquote>
-            <figcaption class="font-light">
-              <div class="text-black">1 cup, pieces</div>
-              <div class="text-black">
-                Calorías: 60 •Carbohidratos: 15 g •Grasa: 0 g •Proteína: 1 g
+    ${data
+      .map(
+        (elements) =>
+          `
+          <figure class="relative w-auto md:flex bg-gray-100 rounded-md p-8 md:p-0">
+            <div class="text-blue-600 pt-6 md:p-8 text-center md:text-left space-y-4">
+              <blockquote>
+                <p class="text-lg font-semibold">${elements.description}</p>
+              </blockquote>
+              <figcaption class="font-light">
+              <div class="text-black">Food Nutrients</div>        
+            <div id="foods" class="text-black">
+            <p>•Calorías: ${elements.foodNutrients
+              .map((names) =>
+                names.name.indexOf("Energy") !== -1 ? names.amount : ""
+              )
+              .join("")}kcal</p>
+            <p>•Carbohidratos: ${elements.foodNutrients
+              .map((names) =>
+                names.name.indexOf("Carbohydrate, by difference") !== -1
+                  ? names.amount
+                  : ""
+              )
+              .join("")}gr</p>
+            <p>•Grasa: ${elements.foodNutrients
+              .map((names) =>
+                names.name.indexOf("Total lipid (fat)") !== -1
+                  ? names.amount
+                  : ""
+              )
+              .join("")}gr</p>
+            <p>•Proteína: ${elements.foodNutrients
+              .map((names) =>
+                names.name.indexOf("Protein") !== -1 ? names.amount : ""
+              )
+              .join("")}gr</p>
               </div>
             </figcaption>
           </div>
@@ -63,11 +70,10 @@ const DataFood = async (user) => {
                 <canvas id="myChart"></canvas>
               </div>
             </div>
-          </div>
-          ${console.log(nutrients)}
+          </div>          
         </figure>`
-       )
-       .join("")}`;
+      )
+      .join("")}`;
     fooData.innerHTML = view;
     inputNamas.value = "";
     return fooData;
@@ -78,9 +84,9 @@ const DataFood = async (user) => {
 
 export default DataFood;
 
-const chartGenerate = () => {
+const chartGenerate = async (fooData) => {
   const ctx = fooData.querySelector("#myChart").getContext("2d");
-  var data = {
+  const data = {
     datasets: [
       {
         backgroundColor: [
@@ -93,7 +99,7 @@ const chartGenerate = () => {
     ],
   };
 
-  var option = {
+  const option = {
     responsive: true,
   };
 
@@ -103,5 +109,5 @@ const chartGenerate = () => {
     data: data,
   });
 
-  console.log(myChart);
+  return myChart;
 };

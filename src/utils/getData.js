@@ -1,4 +1,5 @@
 const getData = async (foodName) => {
+  const cargando = document.querySelector("#cargando");
   const API = `https://api.nal.usda.gov/fdc/v1/foods/list?api_key=QN3xmzbG3eLlzUJa3hAKLP8GQbhsuwvpjJVOArvV&query=${foodName}`;
 
   try {

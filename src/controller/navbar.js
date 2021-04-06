@@ -1,3 +1,5 @@
+import getHash from "../routes/getHash.routes";
+import ResolveRoutes from "../routes/resolveR.routes";
 import viewNav from "../view/navbar.html";
 
 const Navbar = async () => {
@@ -5,11 +7,14 @@ const Navbar = async () => {
   navView.setAttribute("id", "nav");
   navView.classList = "bg-gray-800";
   navView.innerHTML = viewNav;
-  const showMenu = document.getElementById('showMenu')
-  const userMenu = document.getElementById('user-menu')
+  const showMenu = document.getElementById("showMenu");
+  const userMenu = document.getElementById("user-menu");
 
   showMenu.addEventListener("click", showResponsiveMenu);
   userMenu.addEventListener("click", showResponsiveUserMenu);
+
+  await modeActive();
+
   return navView;
 };
 
@@ -34,12 +39,21 @@ function showResponsiveMenu() {
   }
 }
 
-
 const showResponsiveUserMenu = () => {
-  const userMenuBar = document.getElementById('userMenuBar')
-  if (userMenuBar.classList.contains('hidden')){
-    userMenuBar.classList.remove('hidden')
-  }else{
-    userMenuBar.classList = 'hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+  const userMenuBar = document.getElementById("userMenuBar");
+  if (userMenuBar.classList.contains("hidden")) {
+    userMenuBar.classList.remove("hidden");
+  } else {
+    userMenuBar.classList =
+      "hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none";
   }
-}
+};
+
+const modeActive = async () => {
+  const hash = getHash();
+  const route = await ResolveRoutes(hash);
+
+  if (route == route) {
+    return console.log(route);
+  }
+};

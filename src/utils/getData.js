@@ -5,7 +5,6 @@ const getData = async (foodName) => {
   try {
     const response = await fetch(API);
     const data = await response.json();
-    //console.log(data);
     return data;
   } catch (error) {
     console.log("Hay un Error", error);

@@ -27,7 +27,6 @@ const LoginForm = async () => {
       loginPassForm.value = "";
       return;
     }
-    //Mcdielgmzadmin00
     console.log(loginEmail, loginPass);
     try {
       await signIn(loginEmail, loginPass);

@@ -1,12 +1,15 @@
 const ResolveRoutes = (route) => {
-  let validateRoute =
-    route === "/" ||
-    route === "login" ||
-    route === "signup" ||
-    route === "acount"
-      ? route
-      : "404";
-  return validateRoute;
+  if (route.length <= 7) {
+    let validateRoute =
+      route === "/" ||
+      route === "login" ||
+      route === "signup" ||
+      route === "acount"
+        ? route
+        : "/:fdcId";
+    return validateRoute;
+  }
+  return `${route}`;
 };
 
 export default ResolveRoutes;

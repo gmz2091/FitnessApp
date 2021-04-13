@@ -1,40 +1,22 @@
-import view from "../view/dataFood.html";
+import views from "../view/detailsFoods.html";
+import getHash from "../routes/getHash.routes";
 import getData from "../utils/getData";
 
-const DataFood = async (user) => {
+const DetailsFoods = async () => {
   const divElement = document.createElement("div");
-  divElement.classList = "mx-4 xs:mx-4";
-  divElement.innerHTML = view;
-  const searchFood = divElement.querySelector("#searchFood");
-
-  searchFood.addEventListener("submit", (e) => {
-    e.preventDefault();
-    foodData();
-  });
-
-  return divElement;
-};
-
-export default DataFood;
-
-const foodData = async () => {
-  //e.preventDefault();
-  let inputNamas = document.querySelector("#name");
-
-  if (inputNamas.value === "") {
-    console.error("El Campo esta vacio");
-    return;
-  }
-  const foodName = inputNamas.value.replaceAll(" ", "$20");
-  let fooData = document.querySelector("#dataFoods");
-  const data = await getData(foodName);
-  fooData.innerHTML = "";
+  divElement.innerHTML = views;
+  const divFoods = divElement.querySelector("#detailsFoods");
+  divFoods.classList = "";
+  const fdcId = getHash();
+  const dataFood = await getData(fdcId);
+  const data = Object.values(dataFood);
 
   const view = `
   ${data
     .map(
       (elements) =>
         `
+      <div class="ml-10 mt-10 gap-4 md:w-1/2 h-44">
         <figure class="relative border-b border-gray-200 w-auto md:flex md:p-0">
           <div class="text-blue-600 pt-8 pb-4 text-left">
             <blockquote>
@@ -69,10 +51,13 @@ const foodData = async () => {
             </div>
           </figcaption>
         </div>
-      </figure>`
+      </figure>    
+    </div>
+    `
     )
     .join("")}`;
-  fooData.innerHTML = view;
-  inputNamas.value = "";
-  return view;
+  divFoods.innerHTML = view;
+  divElement.appendChild(divFoods);
+  return divElement;
 };
+export default DetailsFoods;

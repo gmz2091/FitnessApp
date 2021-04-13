@@ -1,9 +1,11 @@
-const getData = async (foodName) => {
-  const cargando = document.querySelector("#cargando");
-  const API = `https://api.nal.usda.gov/fdc/v1/foods/list?api_key=QN3xmzbG3eLlzUJa3hAKLP8GQbhsuwvpjJVOArvV&query=${foodName}`;
+const getData = async (foodName, fdcId) => {
+  const FDCID = `${fdcId}`;
+  const FOODS = `list?api_key=QN3xmzbG3eLlzUJa3hAKLP8GQbhsuwvpjJVOArvV&query=${foodName}&pageSize=10`;
+  const API = `https://api.nal.usda.gov/fdc/v1/foods/`;
 
   try {
-    const response = await fetch(API);
+    const apiURL = foodName ? `${API}${FOODS}` : `${API}${FDCID}`;
+    const response = await fetch(apiURL);
     const data = await response.json();
     return data;
   } catch (error) {

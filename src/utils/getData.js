@@ -1,6 +1,7 @@
 const getData = async (foodName, fdcId) => {
+  const apiKEY = process.env.api_key;
   const FDCID = `${fdcId}`;
-  const FOODS = `list?api_key=QN3xmzbG3eLlzUJa3hAKLP8GQbhsuwvpjJVOArvV&query=${foodName}&pageSize=10`;
+  const FOODS = `list?api_key=${apiKEY}&query=${foodName}&pageSize=10`;
   const API = `https://api.nal.usda.gov/fdc/v1/foods/`;
 
   try {

@@ -41,7 +41,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: path.resolve(__dirname, "assets/[name].[contenthash].css"),
     }),
-    new DotenvWebpackPlugin
+    new DotenvWebpackPlugin(),
   ],
   devServer: {
     compress: true,
